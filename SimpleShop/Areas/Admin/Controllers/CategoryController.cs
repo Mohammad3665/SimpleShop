@@ -89,7 +89,7 @@ namespace SimpleShop.Web.Areas.Admin.Controllers
             }
         }
 
-        //TODO : Delete category
+        //TODO : (D) Delete category
         //POST : Admin/Category/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

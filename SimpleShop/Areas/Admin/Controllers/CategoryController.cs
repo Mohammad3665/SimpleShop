@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SimpleShop.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly IMediator _mediator;

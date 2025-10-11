@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using SimpleShop.Application.Common.Interfaces;
 using SimpleShop.Domain.IdentityEntities;
 using SimpleShop.Infrastructure.DatabaseContext;
+using SimpleShop.Infrastructure.Services;
 
 namespace SimpleShop.Web.StartupExtensions
 {
@@ -12,7 +13,8 @@ namespace SimpleShop.Web.StartupExtensions
         public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllersWithViews();
-
+            services.AddScoped<IPathService, WebPathService>();
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<SimpleShopDbContext>());
 
             services.AddDbContext<SimpleShopDbContext>(options =>

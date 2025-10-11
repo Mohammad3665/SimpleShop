@@ -42,9 +42,12 @@ namespace SimpleShop.Web.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, "User");
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    TempData["SuccessMessage"] = "Regiteration was successful."
+                    TempData["SuccessMessage"] = "Regiteration was successful.";
                 }
+                return RedirectToLocal(returnUrl);
             }
+            //If there is a problem, redisplay the form.
+            return View(model);
         }
 
         //TODO : Login

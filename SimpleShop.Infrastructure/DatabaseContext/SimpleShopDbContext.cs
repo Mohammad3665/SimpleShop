@@ -27,6 +27,8 @@ namespace SimpleShop.Infrastructure.DatabaseContext
 
         DbSet<Category> IApplicationDbContext.Categories => Categories;
         DbSet<Product> IApplicationDbContext.Products => Products;
+
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             return await base.SaveChangesAsync(cancellationToken);

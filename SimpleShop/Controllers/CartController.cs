@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SimpleShop.Application.Carts.Commands.AddToCart;
 using SimpleShop.Application.Carts.Commands.RemoveCartItem;
 using SimpleShop.Application.Carts.Commands.UpdateCartItem;
+using SimpleShop.Application.Orders.Commands.CreateOrder;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -98,6 +100,37 @@ namespace SimpleShop.Web.Controllers
                 TempData["ErrorMessage"] = ex.Message;
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        //TODO : Display the address form
+        //GET : Cart/Chekcout
+        public IActionResult Checkout()
+        {
+            return View(new CreateOrderCommand);
+        }
+
+        //TODO : Place order
+        //POST : Cart/PlaceOrder
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PlaceOrder(CreateOrderCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Checkout", command);
+            }
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                int orderId = await _mediator.Send(command);
+                TempData["SuccessMessage"] = $"Your order with ID {orderId} was successfully placed and is being reviewed.";
+                return RedirectToAction("Index", "Order");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error in placing order" + ex.Message);
+                return View("Checkout", command);
+            }
         }
     }
 }

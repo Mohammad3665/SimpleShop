@@ -16,7 +16,7 @@ namespace SimpleShop.Web.StartupExtensions
             services.AddScoped<IPathService, WebPathService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<SimpleShopDbContext>());
-
+            services.AddScoped<ITransactionService, TransactionService>();
             services.AddDbContext<SimpleShopDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );

@@ -14,6 +14,8 @@ namespace SimpleShop.Application.Common.Interfaces
         DbSet<CartItem> CartItems { get; set; }
         DbSet<Category> Categories { get; }
         DbSet<Product> Products { get; }
+        DbSet<Order> Orders { get; }
+        DbSet<OrderItem> OrderItems { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

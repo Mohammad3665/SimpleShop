@@ -22,7 +22,7 @@ namespace SimpleShop.Domain.Entities
         public string PostalCode { get; set; }
 
         //Navigation porperties
-        public ICollection<OrderItem> Items = new List<OrderItem>();
+        public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
 
 
     }

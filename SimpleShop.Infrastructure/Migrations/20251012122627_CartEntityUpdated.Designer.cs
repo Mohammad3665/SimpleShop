@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleShop.Infrastructure.DatabaseContext;
 
@@ -11,9 +12,11 @@ using SimpleShop.Infrastructure.DatabaseContext;
 namespace SimpleShop.Infrastructure.Migrations
 {
     [DbContext(typeof(SimpleShopDbContext))]
-    partial class SimpleShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251012122627_CartEntityUpdated")]
+    partial class CartEntityUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,7 +154,7 @@ namespace SimpleShop.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.CartItem", b =>
@@ -180,7 +183,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.Category", b =>
@@ -201,7 +204,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.Order", b =>
@@ -240,7 +243,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.OrderItem", b =>
@@ -269,7 +272,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.Product", b =>
@@ -308,7 +311,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.ProductImage", b =>
@@ -333,7 +336,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages", (string)null);
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.IdentityEntities.ApplicationRole", b =>

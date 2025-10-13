@@ -10,6 +10,8 @@ namespace SimpleShop.Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
+        DbSet<Cart> Carts { get; set; }
+        DbSet<CartItem> CartItems { get; set; }
         DbSet<Category> Categories { get; }
         DbSet<Product> Products { get; }
 

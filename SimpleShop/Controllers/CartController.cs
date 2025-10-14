@@ -106,7 +106,7 @@ namespace SimpleShop.Web.Controllers
         //GET : Cart/Chekcout
         public IActionResult Checkout()
         {
-            return View(new CreateOrderCommand);
+            return View(new CreateOrderCommand());
         }
 
         //TODO : Place order

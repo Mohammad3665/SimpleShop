@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using SimpleShop.Application.Common.Behaviors;
 using SimpleShop.Application.Common.Interfaces;
 using SimpleShop.Domain.IdentityEntities;
 using SimpleShop.Infrastructure.DatabaseContext;
 using SimpleShop.Infrastructure.Services;
+using System.Reflection;
 
 namespace SimpleShop.Web.StartupExtensions
 {
@@ -18,6 +22,9 @@ namespace SimpleShop.Web.StartupExtensions
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<SimpleShopDbContext>());
             services.AddScoped<ITransactionService, TransactionService>();
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddDbContext<SimpleShopDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );

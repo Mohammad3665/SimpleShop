@@ -16,7 +16,7 @@ namespace SimpleShop.Application.Orders.Commands.UpdateOrderStatus
         {
             var order = await _context.Orders
                 .FirstOrDefaultAsync(o => o.Id == request.OrderId, cancellationToken);
-            if (orderId == null)
+            if (order == null)
             {
                 throw new Exception($"Order with order id {request.OrderId} not found.");
             }

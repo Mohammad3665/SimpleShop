@@ -15,6 +15,7 @@ namespace SimpleShop.Web.StartupExtensions
             services.AddControllersWithViews();
             services.AddScoped<IPathService, WebPathService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<SimpleShopDbContext>());
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddDbContext<SimpleShopDbContext>(options =>

@@ -15,11 +15,13 @@ namespace SimpleShop.Application.Orders.Commands.CreateOrder
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, int>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IPaymentService _paymentService;
         private readonly ITransactionService _transactionService;
-        public CreateOrderCommandHandler(IApplicationDbContext context, ITransactionService transactionService)
+        public CreateOrderCommandHandler(IApplicationDbContext context, ITransactionService transactionService, IPaymentService paymentService)
         {
             _context = context;
             _transactionService = transactionService;
+            _paymentService = paymentService;
         }
 
         public async Task<int> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -73,6 +75,14 @@ namespace SimpleShop.Application.Orders.Commands.CreateOrder
                 _context.Carts.Remove(cart);
 
                 await _context.SaveChangesAsync(cancellationToken);
+
+                var paymentResult = await _paymentService.ProcessPaymentAsync(order.TotalPrice, order.Id, request.UserId, cancellationToken);
+
+                if (!paymentResult.IsSuccessful)
+                {
+                    throw new Exception($"Payment error: {paymentResult.Message}");
+                }
+
                 await transaction.CommitAsync(cancellationToken);
                 return order.Id;
             }

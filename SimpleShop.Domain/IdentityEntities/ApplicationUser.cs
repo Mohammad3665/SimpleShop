@@ -15,5 +15,7 @@ namespace SimpleShop.Domain.IdentityEntities
         // Navigation Property
         public Cart Cart { get; set; }
         public ICollection<Order> Orders { get; set; } = new List<Order>();
+        public bool IsActive { get; set; }
+        public DateTime RegistrationDate { get; set; }
     }
 }

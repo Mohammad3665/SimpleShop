@@ -1,0 +1,96 @@
+﻿@using SimpleShop.Domain.Enums
+@using SimpleShop.Application.Orders.Commands.UpdateOrderStatus
+@using SimpleShop.Application.Orders.Queries.GetOrderDetails
+@model UpdateOrderStatusCommand
+
+@{
+    ViewData["Title"] = "Order Details and Status Update";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+    // Retrieve OrderDetailsDto from ViewData
+    var details = ViewData["OrderDetails"] as OrderDetailsDTO;
+    if (details == null)
+    {
+        // Handle case where details are missing (shouldn't happen if controller is correct)
+        <div class="alert alert-danger">Error: Order details could not be loaded.</div>
+        return;
+    }
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">Order Information #@details.OrderId</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Order Date:</strong> @details.OrderDate.ToShortDateString()</p>
+                <p><strong>Total Amount:</strong> @details.TotalPrice.ToString("C0")</p>
+                <p><strong>Current Status:</strong> <span class="badge @(details.Status == "Cancelled" ? "badge-danger" : "badge-success")">@details.Status</span></p>
+                <hr>
+                <h5>Shipping Address</h5>
+                <p>@details.ShippingAddress</p>
+                <p>Postal Code: @details.PostalCode</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Order Items</h3>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in details.Items)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.UnitPrice.ToString("C0")</td>
+                                <td>@((item.Quantity * item.UnitPrice).ToString("C0"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title">Change Order Status</h3>
+            </div>
+
+            @* The form posts back to the UpdateStatus POST action in Admin/OrderController *@
+            <form asp-action="UpdateStatus" method="post">
+                <div class="card-body">
+                    <input type="hidden" asp-for="OrderId" />
+
+                    <div class="form-group">
+                        <label asp-for="NewOrderStatus">New Status:</label>
+                        <select asp-for="NewOrderStatus" asp-items="@(ViewBag.Statuses as SelectList)" class="form-control">
+                        </select>
+                        <span asp-validation-for="NewOrderStatus" class="text-danger"></span>
+
+                        <small class="form-text text-muted mt-2">
+                            Note: Selecting "Cancelled" will trigger the return of product stock to inventory.
+                        </small>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

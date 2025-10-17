@@ -1,0 +1,64 @@
+﻿@using SimpleShop.Application.Orders.Queries.GetAdminOrders
+@model List<AdminOrderDTO>
+@{
+    ViewData["Title"] = "Order Management";
+}
+
+<div class="card card-info">
+    <div class="card-header">
+        <h3 class="card-title">Order List</h3>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User ID</th>
+                    <th>Order Date</th>
+                    <th>Total Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.OrderId</td>
+                            <td>@order.UserId</td>
+                            <td>@order.OrderDate.ToShortDateString()</td>
+                            <td>@order.TotalPrice.ToString("C0")</td> @* Format as currency (e.g., $1,000) *@
+                            <td>
+                                @{
+                                    // Determine Bootstrap badge class based on status
+                                    string badgeClass = order.Status switch
+                                    {
+                                        "Delivered" => "badge-success",
+                                        "Shipped" => "badge-info",
+                                        "Cancelled" => "badge-danger",
+                                        "Pending" => "badge-warning",
+                                        _ => "badge-secondary"
+                                    };
+                                }
+                                <span class="badge @badgeClass">@order.Status</span>
+                            </td>
+                            <td>
+                                <a asp-action="UpdateStatus" asp-route-id="@order.OrderId" class="btn btn-primary btn-sm">
+                                    Details / Change Status
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">No orders found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

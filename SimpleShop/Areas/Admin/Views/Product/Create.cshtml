@@ -1,0 +1,72 @@
+﻿@using SimpleShop.Domain.Entities
+@model SimpleShop.Application.Products.Commands.CreateProduct.CreateProductCommand
+@{
+    ViewData["Title"] = "Create Product";
+    var categories = ViewBag.Categories as IEnumerable<SimpleShop.Domain.Entities.Category> ?? new List<Category>();
+    var categoryId = Model != null ? Model.CategoryId : 0;
+}
+<h2>Add Product</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="row g-3">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="col-md-6">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" rows="5" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div><div class="col-md-6">
+        <label asp-for="Stock" class="form-label"></label>
+        <input asp-for="Stock" class="form-control" />
+        <span asp-validation-for="Stock" class="text-danger"></span>
+    </div>
+    <div class="col-md-12 mb-3">
+        <label asp-for="CategoryId" class="form-label">Category</label>
+        <div class="list-group">
+            @if (categories.Any())
+            {
+                @foreach (var cat in categories)
+                {
+                    <div class="list-group-item">
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="CategoryId"
+                                   id="category_@cat.Id"
+                                   value="@cat.Id"
+                                   checked="@(cat.Id == categoryId ? "checked" : null)">
+
+                            <label class="form-check-label" for="category_@cat.Id">
+                                @cat.Name
+                            </label>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-warning">please choose an category</p>
+            }
+        </div>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label>Thumbnail</label>
+        <input type="file" asp-for="ImageFile" name="ImageFile" class="form-control" />
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" asp-controller="Product" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SimpleShop.Application.Products.Queries.GetProductsList.ProductListDTO>
+@{
+    ViewData["Title"] = "Manage Products";
+}
+<h2>Posts</h2>
+<a asp-action="Create" class="btn btn-success mb-3">Create New Post</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Stock</th>
+            <th>Category</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>
+                @if (!string.IsNullOrEmpty(product.ImageName))
+                {
+                    <img style="border-radius: 15px;" src="@product.ImageName" class="card-img-top" alt="@product.Name" />
+                }
+                </td>
+                <td>@product.Name</td>
+                <td>@product.Stock</td>
+                <td>@product.CategoryName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="@Url.Action("Details", "Product", new { area = "", id = product.Id })" class="btn btn-success btn-sm">
+                        Show product <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <form asp-action="Delete" asp-route-id="@product.Id" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

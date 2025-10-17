@@ -65,6 +65,8 @@ namespace SimpleShop.Web.Areas.Admin.Controllers
             return View(model);
         }
         //POST : Admin/Category/Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EditCategoryCommand command)
         {
             if (id != null)

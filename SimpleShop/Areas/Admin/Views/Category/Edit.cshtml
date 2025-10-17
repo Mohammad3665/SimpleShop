@@ -1,0 +1,17 @@
+﻿@model SimpleShop.Application.Categories.Commands.EditCategory.EditCategoryCommand
+@{
+    ViewData["Title"] = "Edit Category";
+}
+<h2>Edit Category</h2>
+
+<form asp-action="Edit" method="post" class="row g-3">
+    <input type="hidden" asp-for="Id" />
+    <div class="col-md-6">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

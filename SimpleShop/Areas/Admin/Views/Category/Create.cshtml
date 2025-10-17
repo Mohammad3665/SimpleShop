@@ -1,0 +1,16 @@
+﻿@model SimpleShop.Application.Categories.Commands.CreateCategory.CreateCategoryCommand
+@{
+    ViewData["Title"] = "Create Category";
+}
+<h2>Create Category</h2>
+
+<form asp-action="Create" method="post" class="row g-3">
+    <div class="col-md-6">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>

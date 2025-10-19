@@ -20,7 +20,7 @@ namespace SimpleShop.Application.Products.Commands.DeleteProduct
             if (entity == null) return Unit.Value;
             if (!string.IsNullOrEmpty(entity.ImageName))
             {
-                _fileService.DeleteFile(entity.ImageName, "Products/Images");
+                _fileService.DeleteFile(entity.ImageName, "images/products");
             }
             _context.Products.Remove(entity);
             await _context.SaveChangesAsync(cancellationToken);

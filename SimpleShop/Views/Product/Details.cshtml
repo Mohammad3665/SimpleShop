@@ -1,0 +1,125 @@
+﻿@using SimpleShop.Application.Products.Queries.GetProductDetails
+@model ProductDetailsDTO
+@using SimpleShop.Application.Carts.Commands.AddToCart
+
+@{
+    ViewData["Title"] = @Model.Name;
+}
+
+<div class="app-content">
+
+    <div class="u-s-p-y-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="breadcrumb">
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Product" asp-action="Index">Shop</a></li>
+                        <li><span>@Model.Name</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="u-s-p-b-60">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-5">
+                    <div class="pd u-s-m-b-30">
+                        <div class="pd-wrap">
+                            <div id="pd-o-initiate">
+                                <div class="single-product-gallery-item">
+                                    <a data-image="@($"~/images/products/{Model.ImageFileName}")" data-zoom-image="@($"~/images/products/{Model.ImageFileName}")" class="img-wrapper" href="@($"~/images/products/{Model.ImageFileName}")">
+                                        <img class="img-fluid" src="@($"~/images/products/{Model.ImageFileName}")" alt="@Model.Name">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="pd-detail">
+
+                        <h1 class="pd-detail__name">@Model.Name</h1>
+
+                        <div class="pd-detail__stock">
+                            @if (Model.IsInStock)
+                            {
+                                <span class="pd-detail__stock-wrap">In Stock: <span class="pd-detail__stock-text">Available</span></span>
+                            }
+                            else
+                            {
+                                <span class="pd-detail__stock-wrap text-danger">Out of Stock: <span class="pd-detail__stock-text">Unavailable</span></span>
+                            }
+                        </div>
+
+                        <div class="pd-detail__price">$@Model.Price.ToString("N2")</div>
+
+                        <div class="pd-detail__feature">
+                            <ul class="pd-detail__feature-list">
+                                <li><span>Category:</span> @Model.CategoryName</li>
+                                <li><span>Product ID:</span> @Model.Id</li>
+                            </ul>
+                        </div>
+                        <div class="pd-detail__desc">@Model.Description.Substring(0, Math.Min(Model.Description.Length, 200))...</div>
+
+                        <form class="pd-detail__form" asp-controller="Cart" asp-action="AddItem" method="post">
+
+                            <input type="hidden" name="productId" value="@Model.Id" />
+
+                            <div class="pd-detail-option">
+                                <div class="quantity">
+                                    <input type="text" class="quantity-text-field" value="1" name="quantity">
+                                    <a class="quantity-a-plus fas fa-plus" href="#!"></a>
+                                    <a class="quantity-a-minus fas fa-minus" href="#!"></a>
+                                </div>
+                            </div>
+
+                            <div class="pd-detail-btn">
+                                <button type="submit"
+                                        class="btn btn--e-brand-b-2"
+                                        @(Model.IsInStock ? "" : "disabled")>
+                                    <i class="fas fa-cart-plus"></i>
+                                    <span>@(Model.IsInStock ? "ADD TO CART" : "OUT OF STOCK")</span>
+                                </button>
+                            </div>
+                        </form>
+                        <div class="u-s-m-b-15">
+                            <ul class="pd-social-list">
+                                <li><a class="pd-social-list__link fab fa-facebook-f" href="#!"></a></li>
+                                <li><a class="pd-social-list__link fab fa-twitter" href="#!"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="u-s-p-y-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-12">
+                    <div class="pd-tab--vertical">
+                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-spec-tab" data-toggle="pill" href="#pills-spec" role="tab" aria-controls="pills-spec" aria-selected="true">Description</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-12">
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-spec" role="tabpanel" aria-labelledby="pills-spec-tab">
+                            <div class="pd-tab__holder">
+                                <div class="pd-tab__table">
+                                    @Model.Description
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

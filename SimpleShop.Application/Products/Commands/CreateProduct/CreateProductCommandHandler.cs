@@ -21,7 +21,7 @@ namespace SimpleShop.Application.Products.Commands.CreateProduct
 
         public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var fileName = await _fileService.SaveFileAsync(request.ImageFile, "Products/Images");
+            var fileName = await _fileService.SaveFileAsync(request.ImageFile, "images/products");
             var entity = new Product
             {
                 Name = request.Name,

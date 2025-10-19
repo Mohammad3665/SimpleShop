@@ -1,0 +1,73 @@
+﻿<header class="header--style-3">
+
+    <nav class="primary-nav-wrapper">
+        <div class="container">
+
+            <div class="primary-nav">
+
+                <a class="main-logo" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo/logo-2.png" alt="SimpleShop Logo">
+                </a>
+                <form class="main-form" asp-controller="Product" asp-action="Index" method="get">
+
+                    <label for="main-search"></label>
+                    <input class="input-text input-text--border-radius input-text--only-white" type="text" id="main-search" placeholder="Search" name="searchTerm">
+
+                    <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button>
+                </form>
+                <div class="menu-init" id="navigation">
+
+                    <div class="ah-lg-mode">
+                        <li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Account">
+                            <a href="#">
+                                <i class="far fa-user"></i>
+                            </a>
+                            <div class="menu-box-info menu-box-info--s-size">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <h4 class="menu-box-info__h4">@User.Identity.Name</h4>
+                                    <ul>
+                                        <li><a asp-controller="Order" asp-action="UserOrders">My Orders</a></li>
+                                        <li><a asp-controller="Account" asp-action="Manage">Profile</a></li>
+                                        <li>
+                                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                                <button type="submit" class="btn btn-link p-0">Logout</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                }
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><a asp-area="Admin" asp-controller="Dasboard" asp-action="Index">Admin Panel</a></li>
+                                }
+                        else
+                        {
+                            <ul>
+                                <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                                <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                            </ul>
+                        }
+                    </div>
+                    </li>
+                    <li class="has-dropdown">
+                        <a data-modal="modal" data-modal-id="#quick-cart">
+                            <i class="fas fa-shopping-bag"></i>
+                        </a>
+                        <div class="mini-cart">
+
+                            <div class="mini-total">
+                                <span class="subtotal-text">SUBTOTAL</span>
+                                <span class="subtotal-value">$0.00</span>
+                            </div>
+                            <div class="mini-action">
+                                <a class="mini-link btn--e-brand-b-2" asp-controller="Order" asp-action="Checkout">PROCEED TO CHECKOUT</a>
+                                <a class="mini-link btn--e-transparent-secondary-b-2" asp-controller="Cart" asp-action="Index">VIEW CART</a>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </div>
+        </div>
+    </nav>
+</header>

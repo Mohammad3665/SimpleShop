@@ -1,0 +1,192 @@
+﻿@using SimpleShop.Application.Products.Queries.GetPublicProductList
+@model List<PublicProductDTO>
+
+@{
+    ViewData["Title"] = "Shop Grid";
+}
+<div class="u-s-p-b-60">
+
+    <div>
+        <div class="section__intro u-s-m-b-46">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__text-wrap">
+                            @if (ViewBag.SearchTerm != null)
+                            {
+                                <h1 class="section__heading u-c-secondary u-s-m-b-12">SEARCH RESULTS</h1>
+                                <span class="section__span u-c-silver">Showing results for "@ViewBag.SearchTerm"</span>
+                            }
+                            else
+                            {
+                                <h1 class="section__heading u-c-secondary u-s-m-b-12">ALL PRODUCTS</h1>
+                                <span class="section__span u-c-silver">Explore our entire collection</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section__content">
+            <div class="container">
+                <div class="row">
+
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var product in Model)
+                        {
+                            <div class="col-lg-3 col-md-4 col-sm-6 u-s-m-b-30">
+                                <div class="product-r u-h-100">
+                                    <div class="product-r__container">
+
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block"
+                                           asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">
+
+                                            <img class="aspect__img" src="@($"~/images/products/{product.ThumbnailUrl}")" alt="@product.Name">
+                                        </a>
+
+                                        <div class="product-r__action-wrap">
+                                            <ul class="product-r__action-list">
+                                                <li>
+                                                    <a data-modal="modal" data-modal-id="#quick-look"><i class="fas fa-search-plus"></i></a>
+                                                </li>
+
+                                                <li>
+                                                    <form asp-controller="Cart" asp-action="AddItem" method="post" class="d-inline">
+                                                        <input type="hidden" name="productId" value="@product.Id" />
+                                                        <input type="hidden" name="quantity" value="1" />
+
+                                                        <button type="submit"
+                                                                class="border-0 bg-transparent p-0 m-0"
+                                                                title="@(product.IsInStock ? "Add to Cart" : "Out of Stock")"
+                                                                @(product.IsInStock ? "" : "disabled")>
+                                                            <i class="fas fa-plus-circle"></i>
+                                                        </button>
+                                                    </form>
+                                                </li>
+
+                                                <li><a href="signin.html"><i class="fas fa-heart"></i></a></li>
+                                                <li><a href="signin.html"><i class="fas fa-envelope"></i></a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="product-r__info-wrap">
+
+                                        <span class="product-r__category">
+                                            <a href="#">@product.CategoryName</a>
+                                        </span>
+
+                                        <div class="product-r__n-p-wrap">
+                                            <span class="product-r__name">
+                                                <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
+                                            </span>
+
+                                            <span class="product-r__price">$@product.Price.ToString("N2")</span>
+                                        </div>
+
+                                        @if (product.IsInStock)
+                                        {
+                                            <span class="badge badge-success product-stock-status u-s-m-b-6">In Stock</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger product-stock-status u-s-m-b-6">Out of Stock</span>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col-12 text-center u-s-m-y-30">
+                            <div class="alert alert-warning">
+                                No recent products found to display.
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div> class="u-s-p-y-60">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4 col-sm-12 u-s-m-b-30">
+                <div class="shop-sidebar-wall">
+                    <div class="sidebar-filter-wrapper">
+                        <h1 class="sidebar-heading">FILTERS</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12">
+
+                <div class="product-grid-wrapper">
+                    <div class="row">
+
+                        @if (Model != null && Model.Any())
+                        {
+                            @foreach (var product in Model)
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+                                    <div class="product-card">
+                                        <div class="product-card__content">
+
+                                            <div class="product-card__img-wrap">
+                                                <a class="product-card__img-link" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">
+                                                    <img class="img-fluid" src="@($"~/images/products/{product.ThumbnailUrl}")" alt="@product.Name">
+                                                </a>
+                                            </div>
+
+                                            <div class="product-card__info-wrap">
+                                                <span class="product-card__name">
+                                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">@product.Name</a>
+                                                </span>
+
+                                                <div class="product-card__price">
+                                                    <span class="u-s-m-r-6">$@product.Price.ToString("N2")</span>
+                                                </div>
+
+                                                @if (product.IsInStock)
+                                                {
+                                                    <span class="badge badge-success product-stock-status">In Stock</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge badge-danger product-stock-status">Out of Stock</span>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="product-card__action">
+                                            <form asp-controller="Cart" asp-action="AddItem" method="post">
+                                                <input type="hidden" name="productId" value="@product.Id" />
+                                                <input type="hidden" name="quantity" value="1" />
+
+                                                <button type="submit" class="product-card__action-action btn btn-primary" @(product.IsInStock ? "" : "disabled")>
+                                                    <i class="fas fa-shopping-cart u-s-m-r-6"></i>
+                                                    <span>@(product.IsInStock ? "Add to Cart" : "Out of Stock")</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="col-12">
+                                <div class="alert alert-warning text-center">
+                                    No products matching your selection were found.
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

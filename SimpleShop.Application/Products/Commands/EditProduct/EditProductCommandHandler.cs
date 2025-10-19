@@ -29,8 +29,8 @@ namespace SimpleShop.Application.Products.Commands.EditProduct
 
             if (request.NewImageFile is not null)
             {
-                _fileService.DeleteFile(request.ExistingImageName, "Products/Images");
-                var newFileName = await _fileService.SaveFileAsync(request.NewImageFile, "Products/Images");
+                _fileService.DeleteFile(request.ExistingImageName, "images/products");
+                var newFileName = await _fileService.SaveFileAsync(request.NewImageFile, "images/products");
                 entity.ImageName = newFileName;
             }
             entity.Name = request.Name;

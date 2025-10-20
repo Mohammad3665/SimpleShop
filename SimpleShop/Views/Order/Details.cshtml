@@ -1,0 +1,98 @@
+﻿@using SimpleShop.Application.Orders.Queries.GetOrderDetails
+@model OrderDetailsDTO
+
+@{
+    ViewData["Title"] = $"Order Details #{Model.OrderId}";
+}
+
+<div class="col-lg-9 col-md-12">
+    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white">
+        <div class="dash__pad-2">
+            <h1 class="dash__h1 u-s-m-b-14">Order Details - #@Model.OrderId</h1>
+
+            <div class="dash-details-wrap">
+                <span class="dash-details__status u-c-secondary">Status: @Model.Status</span>
+                <span class="dash-details__date">Order Date: @Model.OrderDate.ToShortDateString()</span>
+                <span class="dash-details__total">Total: $@Model.TotalPrice.ToString("N2")</span>
+            </div>
+
+            <div class="dash-details-action">
+                <a class="dash-details-action__link btn--e-transparent-hover-brand-b-2"
+                   asp-controller="Order"
+                   asp-action="PrintInvoice"
+                   asp-route-id="@Model.OrderId">
+                    PRINT INVOICE
+                </a>
+            </div>
+
+            <h2 class="dash__h2 u-s-m-b-14">Products</h2>
+            <div class="dash__table-wrap gl-scroll">
+                <table class="dash__table dash__table--style-3">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Items != null)
+                        {
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="dash__product-container">
+                                            <div class="dash__product-img">
+                                                <img src="~/images/products/@item.ImageFileName" alt="@item.ProductName">
+                                            </div>
+                                            <div class="dash__product-name">
+                                                <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">@item.ProductName</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>$@item.UnitPrice.ToString("N2")</td>
+                                    <td>@item.Quantity</td>
+                                    <td>$@item.TotalItemPrice.ToString("N2")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="dash__h2 u-s-m-b-14">Shipping Address</h2>
+                    <div class="dash__address-box">
+                        <span class="dash__address-box-text">Address: @Model.ShippingAddress</span>
+                        <span class="dash__address-box-text">Postal Code: @Model.PostalCode</span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <h2 class="dash__h2 u-s-m-b-14">Summary</h2>
+                    <div class="dash__total-wrap">
+                        <div class="dash__total-row">
+                            <div class="dash__total-col">
+                                <span class="dash__total-text">Subtotal</span>
+                            </div>
+                            <div class="dash__total-col">
+                                <span class="dash__total-value">$@(Model.Items?.Sum(i => i.TotalItemPrice) ?? 0.00m).ToString("N2")</span>
+                            </div>
+                        </div>
+                        <div class="dash__total-row dash__total-row--big">
+                            <div class="dash__total-col">
+                                <span class="dash__total-text">Total</span>
+                            </div>
+                            <div class="dash__total-col">
+                                <span class="dash__total-value">$@Model.TotalPrice.ToString("N2")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using SimpleShop.Application.Common.Behaviors;
 using SimpleShop.Application.Common.Interfaces;
 using SimpleShop.Domain.IdentityEntities;
 using SimpleShop.Infrastructure.DatabaseContext;
@@ -22,9 +21,14 @@ namespace SimpleShop.Web.StartupExtensions
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<SimpleShopDbContext>());
             services.AddScoped<ITransactionService, TransactionService>();
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            var applicationAssembly = typeof(SimpleShop.Application.Products.Queries.GetPublicProductList.GetPublicProductListQuery).Assembly;
+
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(applicationAssembly);
+            });
+            //services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddDbContext<SimpleShopDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );

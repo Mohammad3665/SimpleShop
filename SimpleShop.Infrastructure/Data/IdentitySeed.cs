@@ -50,7 +50,11 @@ namespace SimpleShop.Infrastructure.Data
                 {
                     UserName = defaultAdminEmail,
                     Email = defaultAdminEmail,
-                    EmailConfirmed = true
+                    EmailConfirmed = true,
+                    FirstName = "System",
+                    LastName = "System",
+                    IsActive = true,
+                    RegistrationDate = DateTime.Now,
                 };
 
                 var result = await userManager.CreateAsync(newAdmin, "Admin@123");

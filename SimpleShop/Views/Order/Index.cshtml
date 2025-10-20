@@ -1,0 +1,83 @@
+﻿@using SimpleShop.Application.Orders.Queries.GetUserOrders
+@model List<UserOrderDTO>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="u-s-p-y-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white">
+                    <h1 class="dash__h1 u-s-m-b-30">My Orders</h1>
+
+                    <div class="dash__table-wrap gl-scroll">
+                        <table class="dash__table dash__table--style-3">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Total Price</th>
+                                    <th>Total Items</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    @foreach (var order in Model)
+                                    {
+                                        <tr>
+                                            <td>#@order.OrderId</td> 
+                                            <td>@order.OrderDate.ToShortDateString()</td> 
+                                            <td>
+                                                <div class="dash__status-wrap">
+                                                    @{
+                                                        string statusClass = "";
+                                                        if (order.Status == "Delivered")
+                                                        {
+                                                            statusClass = "dash__status--success";
+                                                        }
+                                                        else if (order.Status == "Cancelled")
+                                                        {
+                                                            statusClass = "dash__status--danger";
+                                                        }
+                                                        else
+                                                        {
+                                                            statusClass = "dash__status--processing";
+                                                        }
+                                                    }
+                                                    <span class="dash__status @statusClass">
+                                                        @order.Status
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>$@order.TotalPrice.ToString("N2")</td> 
+                                            <td>@order.TotalItems</td> 
+                                            <td>
+                                                <div class="dash__action-2">
+                                                    <a class="btn btn--e-transparent-hover-product-detail"
+                                                       asp-controller="Order"
+                                                       asp-action="Details"
+                                                       asp-route-id="@order.OrderId">VIEW</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center">You have no orders yet.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>                    
+                </div>
+            </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="u-s-p-y-60">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-md-12">
+                <div class="reg-page-container">
+
+                    <div class="reg-page-content">
+                        <div class="page-title u-s-m-b-30">
+                            <h2 class="u-h2">WELCOME BACK</h2>
+                        </div>
+
+                        @if (ViewData.ModelState[string.Empty]?.Errors.Count > 0)
+                        {
+                            <div class="alert alert-danger u-s-m-b-30 text-center">
+                                <span>@ViewData.ModelState[string.Empty].Errors.First().ErrorMessage</span>
+                            </div>
+                        }
+
+                        <form class="reg-page-form" asp-controller="Account" asp-action="Login" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]">
+
+                            <div class="u-s-m-b-15">
+                                <label for="login-email">Email <span class="astk">*</span></label>
+                                <input name="email" class="input-text input-text--primary-style" type="email" id="login-email" placeholder="Enter Your Email" required>
+                            </div>
+
+                            <div class="u-s-m-b-15">
+                                <label for="login-password">Password <span class="astk">*</span></label>
+                                <input name="password" class="input-text input-text--primary-style" type="password" id="login-password" placeholder="Enter Your Password" required>
+                            </div>
+
+                            <div class="u-s-m-b-45">
+                                <button class="btn btn--e-transparent-brand-b-2" type="submit">LOGIN</button>
+                            </div>
+
+                            <a class="u-c-brand" asp-controller="Account" asp-action="Register">Create Account? Register here</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

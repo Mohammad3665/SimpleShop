@@ -1,0 +1,97 @@
+﻿@using SimpleShop.Application.Orders.Commands.CreateOrder
+@model CreateOrderCommand
+
+@{
+    ViewData["Title"] = "Checkout";
+
+    decimal totalAmount = ViewBag.TotalAmount ?? 0.00m;
+    decimal subTotal = ViewBag.TotalAmount ?? 0.00m;
+}
+<div class="u-s-p-y-60">
+    <div class="container">
+
+        <form asp-controller="Cart" asp-action="PlaceOrder" method="post">
+
+            <div class="row">
+
+                <div class="col-lg-9">
+                    <h1 class="checkout-box__h1">Shipping Information</h1>
+                    <div class="checkout-steps">
+                        <div class="checkout-step-wrap">
+                            <div class="checkout-step">
+                                <h2 class="checkout-step__title">BILLING & SHIPPING</h2>
+                                <div class="row">
+
+                                    <div class="col-lg-12 u-s-m-b-30">
+                                        <label for="shipping-address">
+                                            Shipping Address *
+                                            <span class="asterisk-error"><span asp-validation-for="ShippingAddress"></span></span>
+                                        </label>
+                                        <textarea asp-for="ShippingAddress" class="text-field text-field--border-radius text-field--size-3" id="shipping-address" placeholder="Full Address"></textarea>
+                                    </div>
+
+                                    <div class="col-lg-6 u-s-m-b-30">
+                                        <label for="postal-code">
+                                            Postal Code *
+                                            <span class="asterisk-error"><span asp-validation-for="PostalCode"></span></span>
+                                        </label>
+                                        <input asp-for="PostalCode" class="text-field text-field--border-radius text-field--size-3" type="text" id="postal-code" placeholder="Postal Code">
+                                    </div>
+
+                                    <div asp-validation-summary="ModelOnly" class="text-danger u-s-m-b-20 col-12"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @* بخش متد پرداخت (Payment Method) - از آنجایی که در Command نیست، باید به صورت دستی یا با فیلدهای مخفی اضافه شود. 
+                        اگرچه برای سادگی، فعلاً آن را حفظ می‌کنیم. *@
+                        <div class="checkout-step-wrap">
+                            <div class="checkout-step">
+                                <h2 class="checkout-step__title">PAYMENT</h2>
+                                <div class="payment-option">
+                                    <div class="payment-option-wrap">
+                                        <label class="s-option s-option--check">
+                                            <input type="radio" name="PaymentMethod" value="Online" checked>
+                                            <span class="s-option__check"></span>
+                                            <span class="s-option__label">Online Payment</span>
+                                        </label>
+                                        <label class="s-option s-option--check">
+                                            <input type="radio" name="PaymentMethod" value="CashOnDelivery">
+                                            <span class="s-option__check"></span>
+                                            <span class="s-option__label">Cash on Delivery</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="order-summary-container">
+                        <h3 class="order-summary-heading">Your Order</h3>
+                        <div class="order-summary-box">
+                            <ul class="order-summary-detail u-s-m-b-14">
+                                <li>
+                                    <span class="order-summary-detail__text">Total Amount</span> @* Subtotal به Total Amount تغییر داده شد *@
+                                    <span class="order-summary-detail__value">$@subTotal.ToString("N2")</span>
+                                </li>
+                                <li class="s-total">
+                                    <span class="order-summary-detail__text">Grand Total</span>
+                                    <span class="order-summary-detail__value">$@totalAmount.ToString("N2")</span>
+                                </li>
+                            </ul>
+
+                            <button type="submit" class="btn btn--e-brand-b-2 btn--full-width">PLACE ORDER</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -151,7 +151,7 @@ namespace SimpleShop.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.CartItem", b =>
@@ -180,7 +180,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItems", (string)null);
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.Category", b =>
@@ -201,7 +201,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.Order", b =>
@@ -240,7 +240,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.OrderItem", b =>
@@ -269,7 +269,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.Product", b =>
@@ -308,7 +308,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.Entities.ProductImage", b =>
@@ -333,7 +333,7 @@ namespace SimpleShop.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("SimpleShop.Domain.IdentityEntities.ApplicationRole", b =>

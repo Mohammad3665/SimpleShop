@@ -8,5 +8,6 @@ namespace SimpleShop.Application.Orders.Queries.GetUserOrders
         public decimal TotalPrice { get; set; }
         public string Status { get; set; }
         public int TotalItems { get; set; }
+        public string ProductName { get; set; }
     }
 }

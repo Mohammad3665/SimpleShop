@@ -5,116 +5,215 @@
     ViewData["Title"] = "Shopping Cart";
 }
 
-<div class="u-s-p-y-60">
-    <div class="container">
-        <div class="row">
 
-            @if (Model == null || !Model.Items.Any())
-            {
-                <div class="col-lg-12">
-                    <h1 class="text-center u-s-m-b-30">Your Cart is Empty!</h1>
-                    <div class="text-center">
-                        <a class="btn btn--e-brand-b-2" asp-controller="Home" asp-action="Index">Continue Shopping</a>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="col-lg-12">
-                    <div class="cart-table-wrap">
-                        <table class="cart-table">
-                            <thead>
-                                <tr>
-                                    <th class="product-item-remove">Remove</th>
-                                    <th class="product-item-thumbnail">Image</th>
-                                    <th class="product-item-name">Product</th>
-                                    <th class="product-item-price">Price</th>
-                                    <th class="product-item-quantity">Quantity</th>
-                                    <th class="product-item-subtotal">Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Items)
-                                {
-                                    <tr class="product-item">
 
-                                        <td class="product-item-remove">
-                                            <form asp-controller="Cart" asp-action="RemoveCartItem" method="post">
-                                                <input type="hidden" name="cartItemId" value="@item.CartItemId" />
-                                                <button type="submit" class="far fa-trash-alt" title="Remove Item"></button>
-                                            </form>
-                                        </td>
+<!--====== App Content ======-->
+<div class="app-content">
+    <!--====== Section 2 ======-->
+    <div class="u-s-p-b-60">
 
-                                        <td class="product-item-thumbnail">
-                                            <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">
-                                                <img src="~/images/products/@item.ProductImageName" alt="@item.ProductName">
-                                            </a>
-                                        </td>
-
-                                        <td class="product-item-name">
-                                            <a asp-controller="Product" asp-action="Details" asp-route-id="@item.ProductId">@item.ProductName</a>
-                                        </td>
-
-                                        <td class="product-item-price">$@item.UnitPrice.ToString("N2")</td>
-
-                                        <td class="product-item-quantity">
-                                            <form asp-controller="Cart" asp-action="UpdateCartItem" method="post" id="updateForm_@item.CartItemId">
-                                                <div class="control-wrapper u-s-p-b-15">
-                                                    <input type="hidden" name="cartItemId" value="@item.CartItemId" />
-
-                                                    <input class="input-text input-text--primary-style"
-                                                           type="number"
-                                                           name="quantity"
-                                                           value="@item.Quantity"
-                                                           min="1" />
-
-                                                    <button type="submit" class="btn btn--e-transparent-hover-brand-b-2">
-                                                        Update
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </td>
-
-                                        <td class="product-item-subtotal">$@item.TotalItemPrice.ToString("N2")</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    <div class="cart-total">
-                        <h2 class="cart-total__title">Cart Summary</h2>
-
-                        <div class="cart-total__coupon">
-                            <h2 class="cart-total__h2">Have a Coupon?</h2>
-                            <form class="cart-total__coupon-form" action="#" method="post">
-                                <label for="coupon-code"></label>
-                                <input class="input-text input-text--border-radius input-text--style-1"
-                                       type="text"
-                                       id="coupon-code"
-                                       placeholder="Enter Coupon Code">
-                                <button class="btn btn--e-brand-b-2" type="submit">Apply</button>
-                            </form>
-                        </div>
-
-                        <div class="cart-total__wrap">
-                            <div class="cart-total__total">
-                                <p>Subtotal <span>$@Model.TotalAmount.ToString("N2")</span></p>
-                                <p>Shipping <span>$0.00</span></p>
-                                <p>Discount <span>-$0.00</span></p>
-
-                                <p>Grand Total <span>$@Model.TotalAmount.ToString("N2")</span></p>
-                            </div>
-
-                            <div class="cart-total__btn-wrap">
-                                <a class="btn btn--e-brand-b-2" asp-controller="Cart" asp-action="Checkout">PROCEED TO CHECKOUT</a>
-                            </div>
+        <!--====== Section Intro ======-->
+        <div class="section__intro u-s-m-b-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__text-wrap">
+                            <h1 class="section__heading u-c-secondary">SHOPPING CART</h1>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
         </div>
+        <!--====== End - Section Intro ======-->
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
+                        <div class="table-responsive">
+                            <table class="table-p">
+                                <tbody>
+                                    @foreach(var item in Model.Items)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="table-p__box">
+                                                    <div class="table-p__img-wrap">
+
+                                                        <img class="u-img-fluid" src="images/products/@item.ProductImageName" alt="">
+                                                    </div>
+                                                    <div class="table-p__info">
+
+                                                        <span class="table-p__name">
+
+                                                            <a href="product-detail.html">@item.ProductName</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+
+                                                <span class="table-p__price">@item.UnitPrice.ToString("N2")</span>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <form asp-controller="Cart" asp-action="RemoveItem" method="post">
+                                                <div class="table-p__del-wrap">
+                                                    <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                                                    <button type="submit" class="far fa-trash-alt"></button>
+                                                </div>
+
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    }
+                                    <!--====== Row ======-->
+                                    <tr>
+                                        <td>
+                                            <div class="table-p__box">
+                                                <div class="table-p__img-wrap">
+
+                                                    <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt="">
+                                                </div>
+                                                <div class="table-p__info">
+
+                                                    <span class="table-p__name">
+
+                                                        <a href="product-detail.html">Yellow Wireless Headphone</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+
+                                            <span class="table-p__price">$125.00</span>
+                                        </td>
+                                        <td>
+                                            <div class="table-p__del-wrap">
+
+                                                <a class="far fa-trash-alt table-p__delete-link" href="#"></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!--====== End - Row ======-->
+                                    <!--====== Row ======-->
+                                    <tr>
+                                        <td>
+                                            <div class="table-p__box">
+                                                <div class="table-p__img-wrap">
+
+                                                    <img class="u-img-fluid" src="images/product/women/product8.jpg" alt="">
+                                                </div>
+                                                <div class="table-p__info">
+
+                                                    <span class="table-p__name">
+
+                                                        <a href="product-detail.html">New Dress D Nice Elegant</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+
+                                            <span class="table-p__price">$125.00</span>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <div class="table-p__del-wrap">
+
+                                                <a class="far fa-trash-alt table-p__delete-link" href="#"></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!--====== End - Row ======-->
+                                    <!--====== Row ======-->
+                                    <tr>
+                                        <td>
+                                            <div class="table-p__box">
+                                                <div class="table-p__img-wrap">
+
+                                                    <img class="u-img-fluid" src="images/product/men/product8.jpg" alt="">
+                                                </div>
+                                                <div class="table-p__info">
+
+                                                    <span class="table-p__name">
+
+                                                        <a href="product-detail.html">New Fashion D Nice Elegant</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+
+                                            <span class="table-p__price">$125.00</span>
+                                        </td>
+                                        <td>
+                                            <div class="table-p__del-wrap">
+
+                                                <a class="far fa-trash-alt table-p__delete-link" href="#"></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!--====== End - Row ======-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Content ======-->
     </div>
+    <!--====== End - Section 2 ======-->
+    <!--====== Section 3 ======-->
+    <div class="u-s-p-b-60">
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
+                        <form class="f-cart">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                                    <div class="f-cart__pad-box">
+                                        <div class="u-s-m-b-30">
+                                            <table class="f-cart__table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>SHIPPING</td>
+                                                        <td>$0.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>TAX</td>
+                                                        <td>$0.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SUBTOTAL</td>
+                                                        <td>@Model.TotalAmount.ToString("N2")</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>GRAND TOTAL</td>
+                                                        <td>@Model.TotalAmount.ToString("N2")</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn--e-brand-b-2" type="submit" asp-controller="Cart" asp-action="Checkout"> PROCEED TO CHECKOUT</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Content ======-->
+    </div>
+    <!--====== End - Section 3 ======-->
 </div>
+<!--====== End - App Content ======-->

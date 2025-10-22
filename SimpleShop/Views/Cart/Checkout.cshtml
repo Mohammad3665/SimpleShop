@@ -42,9 +42,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        @* بخش متد پرداخت (Payment Method) - از آنجایی که در Command نیست، باید به صورت دستی یا با فیلدهای مخفی اضافه شود. 
-                        اگرچه برای سادگی، فعلاً آن را حفظ می‌کنیم. *@
                         <div class="checkout-step-wrap">
                             <div class="checkout-step">
                                 <h2 class="checkout-step__title">PAYMENT</h2>
@@ -89,9 +86,3 @@
         </form>
     </div>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

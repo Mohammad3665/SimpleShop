@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleShop.Application.Products.Queries.GetProductDetails
 {
-    public class GetProductDetailsQuery : IRequest<EditProductCommand>
+    public class GetProductDetailsQuery : IRequest<ProductDetailsDTO>
     {
         public int Id { get; set; }
     }

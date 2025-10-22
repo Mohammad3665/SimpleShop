@@ -5,79 +5,172 @@
     ViewData["Title"] = "My Orders";
 }
 
-<div class="u-s-p-y-60">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9 col-md-12">
-                <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white">
-                    <h1 class="dash__h1 u-s-m-b-30">My Orders</h1>
+<!--====== App Content ======-->
+<div class="app-content">
+    <!--====== Section 2 ======-->
+    <div class="u-s-p-b-60">
 
-                    <div class="dash__table-wrap gl-scroll">
-                        <table class="dash__table dash__table--style-3">
-                            <thead>
-                                <tr>
-                                    <th>Order #</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Total Price</th>
-                                    <th>Total Items</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (Model != null && Model.Any())
-                                {
-                                    @foreach (var order in Model)
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="dash">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12">
+                            <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                                <div class="dash__pad-2">
+                                    <h1 class="dash__h1 u-s-m-b-14">My Orders</h1>
+
+                                    <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>
+                                    @if (Model is not null && Model.Any())
                                     {
-                                        <tr>
-                                            <td>#@order.OrderId</td> 
-                                            <td>@order.OrderDate.ToShortDateString()</td> 
-                                            <td>
-                                                <div class="dash__status-wrap">
-                                                    @{
-                                                        string statusClass = "";
-                                                        if (order.Status == "Delivered")
+                                        foreach (var order in Model)
+                                        {
+                                            <div class="m-order__get">
+                                                <div class="manage-o__header u-s-m-b-30">
+                                                    <div class="dash-l-r">
+                                                        <div>
+                                                            <div class="manage-o__text-2 u-c-secondary">Order @order.OrderId</div>
+                                                            <div class="manage-o__text u-c-silver">Placed on @order.OrderDate</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="manage-o__description">
+                                                    <div class="description__container">
+                                                        @if (order.TotalItems > 1)
                                                         {
-                                                            statusClass = "dash__status--success";
-                                                        }
-                                                        else if (order.Status == "Cancelled")
-                                                        {
-                                                            statusClass = "dash__status--danger";
+                                                            <div class="description-title">
+                                                                @order.ProductName and other...
+                                                            </div>
                                                         }
                                                         else
                                                         {
-                                                            statusClass = "dash__status--processing";
+                                                            <div class="description-title">
+                                                                @order.ProductName
+                                                            </div>
                                                         }
-                                                    }
-                                                    <span class="dash__status @statusClass">
-                                                        @order.Status
-                                                    </span>
+                                                    </div>
+                                                    <div class="description__info-wrap">
+                                                        <div>
+                                                            <span class="manage-o__badge badge--processing">@order.Status</span>
+                                                        </div>
+                                                        <div>
+
+                                                            <span class="manage-o__text-2 u-c-silver">
+                                                                Quantity:
+
+                                                                <span class="manage-o__text-2 u-c-secondary">@order.TotalItems.ToString()</span>
+                                                            </span>
+                                                        </div>
+                                                        <div>
+
+                                                            <span class="manage-o__text-2 u-c-silver">
+                                                                Total:
+
+                                                                <span class="manage-o__text-2 u-c-secondary">@order.TotalPrice.ToString("N2")</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </td>
-                                            <td>$@order.TotalPrice.ToString("N2")</td> 
-                                            <td>@order.TotalItems</td> 
-                                            <td>
-                                                <div class="dash__action-2">
-                                                    <a class="btn btn--e-transparent-hover-product-detail"
-                                                       asp-controller="Order"
-                                                       asp-action="Details"
-                                                       asp-route-id="@order.OrderId">VIEW</a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        }
                                     }
-                                }
-                                else
-                                {
-                                    <tr>
-                                        <td colspan="6" class="text-center">You have no orders yet.</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>                    
+                                    <div class="m-order__list">
+                                        <div class="m-order__get">
+                                            <div class="manage-o__header u-s-m-b-30">
+                                                <div class="dash-l-r">
+                                                    <div>
+                                                        <div class="manage-o__text-2 u-c-secondary">Order #305423126</div>
+                                                        <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 09:08:37</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="dash__link dash__link--brand">
+
+                                                            <a href="dash-manage-order.html">MANAGE</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="manage-o__description">
+                                                <div class="description__container">
+                                                    <div class="description-title">New Dress D Nice Elegant</div>
+                                                </div>
+                                                <div class="description__info-wrap">
+                                                    <div>
+
+                                                        <span class="manage-o__badge badge--shipped">Shipped</span>
+                                                    </div>
+                                                    <div>
+
+                                                        <span class="manage-o__text-2 u-c-silver">
+                                                            Quantity:
+
+                                                            <span class="manage-o__text-2 u-c-secondary">1</span>
+                                                        </span>
+                                                    </div>
+                                                    <div>
+
+                                                        <span class="manage-o__text-2 u-c-silver">
+                                                            Total:
+
+                                                            <span class="manage-o__text-2 u-c-secondary">$16.00</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-order__get">
+                                            <div class="manage-o__header u-s-m-b-30">
+                                                <div class="dash-l-r">
+                                                    <div>
+                                                        <div class="manage-o__text-2 u-c-secondary">Order #305423126</div>
+                                                        <div class="manage-o__text u-c-silver">Placed on 26 Oct 2016 09:08:37</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="dash__link dash__link--brand">
+
+                                                            <a href="dash-manage-order.html">MANAGE</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="manage-o__description">
+                                                <div class="description__container">
+                                                    <div class="description-title">New Fashion D Nice Elegant</div>
+                                                </div>
+                                                <div class="description__info-wrap">
+                                                    <div>
+
+                                                        <span class="manage-o__badge badge--delivered">Delivered</span>
+                                                    </div>
+                                                    <div>
+
+                                                        <span class="manage-o__text-2 u-c-silver">
+                                                            Quantity:
+
+                                                            <span class="manage-o__text-2 u-c-secondary">1</span>
+                                                        </span>
+                                                    </div>
+                                                    <div>
+
+                                                        <span class="manage-o__text-2 u-c-silver">
+                                                            Total:
+
+                                                            <span class="manage-o__text-2 u-c-secondary">$16.00</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
+        </div>
+        <!--====== End - Section Content ======-->
     </div>
+    <!--====== End - Section 2 ======-->
 </div>
+<!--====== End - App Content ======-->

@@ -34,7 +34,7 @@ namespace SimpleShop.Web.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.PersonName,
+                    UserName = model.UserName,
                     Email = model.Email
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);

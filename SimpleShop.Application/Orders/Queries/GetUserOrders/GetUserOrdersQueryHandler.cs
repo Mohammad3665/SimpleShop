@@ -20,8 +20,8 @@ namespace SimpleShop.Application.Orders.Queries.GetUserOrders
                     OrderId = p.Id,
                     Status = p.Status.ToString(),
                     TotalItems = p.Items.Sum(s => s.Quantity),
-                    TotalPrice = p.TotalPrice
-
+                    TotalPrice = p.TotalPrice,
+                    ProductName = p.Items.First().Product.Name,
                 }).ToListAsync(cancellationToken);
         }
     }

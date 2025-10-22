@@ -4,8 +4,14 @@ namespace SimpleShop.Web.Models.Account
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Name cannot be blank")]
-        public string PersonName { get; set; }
+        [Required(ErrorMessage = "User name cannot be blank")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "First name cannot be blank")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "Last name cannot be blank")]
+        public string LastName { get; set; }
 
         [Required(ErrorMessage = "E-mail cannot be blank")]
         [EmailAddress]

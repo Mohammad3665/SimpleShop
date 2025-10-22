@@ -69,7 +69,7 @@ namespace SimpleShop.Web.Areas.Admin.Controllers
             var productCommand = await _mediator.Send(productQuery);
             var categories = await _mediator.Send(categoriesQuery);
             if (productCommand == null) return NotFound();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name", productCommand.CategoryId);
+            ViewBag.Categories = new SelectList(categories, "Id", "Name", productCommand.Id);
 
             return View(productCommand);
         }

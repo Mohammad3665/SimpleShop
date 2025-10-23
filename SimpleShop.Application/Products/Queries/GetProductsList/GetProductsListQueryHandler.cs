@@ -27,7 +27,6 @@ namespace SimpleShop.Application.Products.Queries.GetProductsList
                     ImageName = p.ImageName,
                     CategoryName = p.Category.Name
                 }).ToListAsync(cancellationToken);
-            throw new NotImplementedException();
         }
     }
 }

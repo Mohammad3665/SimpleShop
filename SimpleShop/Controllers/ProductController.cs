@@ -18,6 +18,7 @@ namespace SimpleShop.Web.Controllers
         {
             var query = new GetPublicProductListQuery { CategoryId = categoryId };
             var model = await _mediator.Send(query);
+            ViewBag.CategoryId = categoryId;
             return View(model);
         }
 

@@ -1,5 +1,5 @@
-﻿@using SimpleShop.Application.Products.Queries.GetProductsList;
-@model List<ProductListDTO>
+﻿@using SimpleShop.Application.Products.Queries.GetPublicProductList;
+@model List<PublicProductDTO>
 
 <!--====== Section 3 ======-->
 <div class="u-s-p-b-60">
@@ -40,7 +40,7 @@
 
                                     <a class="aspect aspect--bg-grey aspect--square u-d-block" asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">
 
-                                        <img class="aspect__img" src="@($"~/images/products/{product.ImageName}")" alt="@product.Name">
+                                        <img class="aspect__img" src="@($"~/images/products/{product.ThumbnailUrl}")" alt="@product.Name">
                                     </a>
                                     <div class="product-r__action-wrap">
                                         <ul class="product-r__action-list">
@@ -78,7 +78,7 @@
 
                                         <span class="product-r__price">$@product.Price.ToString("N2")</span>
                                     </div>
-                                    @if (product.Stock > 0)
+                                    @if (product.IsInStock)
                                     {
                                         <span class="badge badge-success product-stock-status u-s-m-b-6">In Stock</span>
                                     }

@@ -1,5 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleShop.Application.Common.Interfaces;
 using SimpleShop.Domain.IdentityEntities;
 using SimpleShop.Infrastructure.Data;
 using SimpleShop.Web.StartupExtensions;
@@ -11,6 +13,9 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<IApplicationDbContext>();
+    var midator = services.GetRequiredService<IMediator>();
+    await CategorySeed.SeedCategories(context, midator);
     await IdentitySeed.CreateRoles(services);
 }
 

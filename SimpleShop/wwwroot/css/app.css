@@ -69,8 +69,6 @@ body {
   font-size: 1rem;
   -webkit-font-smoothing: antialiased; }
 
-.config {
-  overflow: hidden; }
 
 /**
  * Basic styles for headings and paragraph
@@ -193,8 +191,7 @@ Box Module
 /* App Content exclude Header & Footer */
 @media (min-width: 576px) {
   html.boxed .app-content {
-    margin: 0 auto;
-    overflow: hidden; } }
+    margin: 0 auto;} }
 
 @media (min-width: 576px) {
   html.boxed .app-content {

@@ -1,0 +1,11 @@
+﻿@using SimpleShop.Application.Categories.Queries.GetCategoriesList
+@using SimpleShop.Web.Models.ComponentModels
+@model CategoryNavigationComponentModel
+@foreach (var cat in Model.Categories)
+{
+    var isSelected = cat.Id == Model.CurrentCategoryId;
+    <li class="js-active">
+        <span value="@cat.Id" selected="@(isSelected ? "selected" : null)">@cat.Name</span>
+        <span class="js-menu-toggle js-toggle-mark"></span>
+    </li>
+}

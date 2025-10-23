@@ -68,7 +68,7 @@ namespace SimpleShop.Web.Controllers
                 var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(returnUrl ?? "/Admin/Category");
+                    return RedirectToAction("Index", "Product");
                 }
                 ModelState.AddModelError(string.Empty, "Login failed.");
             }

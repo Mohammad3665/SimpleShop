@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SimpleShop.Application.Categories.Queries.GetCategoriesList;
 using SimpleShop.Application.Products.Commands.CreateProduct;
 using SimpleShop.Application.Products.Commands.DeleteProduct;
 using SimpleShop.Application.Products.Commands.EditProduct;
@@ -21,9 +22,10 @@ namespace SimpleShop.Web.Areas.Admin.Controllers
 
         //TODO : (R) show products
         //GET : Admin/Product
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = _mediator.Send(new GetProductsListQuery());
+            var query = new GetProductsListQuery();
+            var model = await _mediator.Send(query);
             return View(model);
         }
 
@@ -31,8 +33,8 @@ namespace SimpleShop.Web.Areas.Admin.Controllers
         //GET : Admin/Product/Create
         public async Task<IActionResult> Create()
         {
-            var categories = await _mediator.Send(new GetCategoryDropdownQuery());
-            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            var categories = await _mediator.Send(new GetCategoriesListQuery());
+            ViewBag.Categories = categories;
             return View(new CreateProductCommand());
         }
 

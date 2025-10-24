@@ -19,7 +19,6 @@ public class CategoryNavigationViewComponent : ViewComponent
         var categories = await _mediator.Send(new GetCategoriesListQuery());
         var categoryId = ViewContext.ViewBag.CategoryId as int?;
 
-        // 3. ایجاد و ارسال مدل جدید
         var componentModel = new CategoryNavigationComponentModel
         {
             Categories = categories,

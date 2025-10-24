@@ -2,7 +2,7 @@
 @model SimpleShop.Application.Products.Commands.CreateProduct.CreateProductCommand
 @{
     ViewData["Title"] = "Create Product";
-    var categories = ViewBag.Categories as IEnumerable<SimpleShop.Domain.Entities.Category> ?? new List<Category>();
+    var categories = ViewBag.Categories as List<SimpleShop.Application.Categories.Queries.GetCategoriesList.CategoryListDTO>;
     var categoryId = Model != null ? Model.CategoryId : 0;
 }
 <h2>Add Product</h2>
@@ -34,7 +34,7 @@
     <div class="col-md-12 mb-3">
         <label asp-for="CategoryId" class="form-label">Category</label>
         <div class="list-group">
-            @if (categories.Any())
+            @if (categories is not null && categories.Any())
             {
                 @foreach (var cat in categories)
                 {

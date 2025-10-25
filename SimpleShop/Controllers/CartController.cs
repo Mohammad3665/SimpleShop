@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using SimpleShop.Application.Carts.Commands.AddToCart;
 using SimpleShop.Application.Carts.Commands.RemoveCartItem;
 using SimpleShop.Application.Carts.Commands.UpdateCartItem;
+using SimpleShop.Application.Carts.Queries.GetCart;
 using SimpleShop.Application.Orders.Commands.CreateOrder;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace SimpleShop.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var query = new { UserId = userId };
+            var query = new GetCartQuery{ UserId = userId };
             var model = await _mediator.Send(query);
             return View(model);
         }

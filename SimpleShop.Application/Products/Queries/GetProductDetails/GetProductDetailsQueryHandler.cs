@@ -20,6 +20,7 @@ namespace SimpleShop.Application.Products.Queries.GetProductDetails
         {
             var product = await _context.Products
                 .AsNoTracking()
+                .Include(c => c.Category)
                 .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
 
             if (product == null)

@@ -16,9 +16,9 @@
                     <div class="pd u-s-m-b-30">
                         <div class="slider-fouc pd-wrap">
                             <div id="pd-o-initiate">
-                                <div class="pd-o-img-wrap" data-image="@($"~/images/products/{Model.ImageFileName}")" data-zoom-image="@($"~/images/products/{Model.ImageFileName}")">
+                                <div class="pd-o-img-wrap" data-image="images/products/@Model.ImageFileName" data-zoom-image="images/products/@Model.ImageFileName">
 
-                                    <img class="u-img-fluid" src="@($"~/images/products/{Model.ImageFileName}")" data-zoom-image="@($"~/image/products/{Model.ImageFileName}")" alt="">
+                                    <img class="u-img-fluid" src="images/products/@Model.ImageFileName" data-zoom-image="images/products/@Model.ImageFileName" alt="">
                                 </div>
                             </div>
 
@@ -51,6 +51,7 @@
                                 {
                                     <span class="pd-detail__left">Out of stock</span>
                                 }
+                                <span class="pd-detail__stock">Category Name: @Model.CategoryName</span>
                             </div>
                         </div>
                         <div class="u-s-m-b-15">

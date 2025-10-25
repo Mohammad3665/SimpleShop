@@ -30,7 +30,7 @@
                 <td>@product.CategoryName</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="@Url.Action("Details", "Product", new { area = "", id = product.Id })" class="btn btn-success btn-sm">
+                    <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-success btn-sm">
                         Show product <i class="fas fa-external-link-alt"></i>
                     </a>
                     <form asp-action="Delete" asp-route-id="@product.Id" method="post" class="d-inline">
@@ -41,3 +41,4 @@
         }
     </tbody>
 </table>
+@* href="@Url.Action("Details", "Product", new { area = "", id = product.Id })" *@

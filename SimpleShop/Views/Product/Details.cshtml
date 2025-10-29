@@ -16,16 +16,35 @@
                     <div class="pd u-s-m-b-30">
                         <div class="slider-fouc pd-wrap">
                             <div id="pd-o-initiate">
-                                <div class="pd-o-img-wrap" data-image="~/images/products/@Model.ImageFileName" data-zoom-image="~/images/products/@Model.ImageFileName">
+                                @foreach (var file in Model.ImageUrls)
+                                {
+                                <div class="pd-o-img-wrap" data-src="images/products/@file">
 
-                                    <img class="u-img-fluid" src="~/images/products/@Model.ImageFileName" data-zoom-image="~/images/products/@Model.ImageFileName" alt="">
+                                    <img class="u-img-fluid" src="images/product/@file" data-zoom-image="/images/products/@file" alt="">
                                 </div>
+                                    
+                                }
                             </div>
 
                             <span class="pd-text">Click for larger zoom</span>
                         </div>
+                        <div class="u-s-m-t-15">
+                            <div class="slider-fouc">
+                                <div id="pd-o-thumbnail">
+                                    @foreach (var fileName in Model.ImageUrls)
+                                    {
+                                    <div>
+
+                                        <img class="u-img-fluid" src="images/products/@fileName" alt="">
+                                    </div>
+                                        
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!--====== End - Product Detail Zoom ======-->
+
                 </div>
                 <div class="col-lg-7">
 

@@ -42,7 +42,7 @@ namespace SimpleShop.Application.Products.Queries.GetPublicProductList
                     CategoryName = p.Category.Name,
                     IsInStock = p.Stock > 0,
                     Price = p.Price,
-                    ThumbnailUrl = p.ImageName,
+                    MainImageUrl = p.ImageName,
                 }).ToListAsync(cancellationToken);
         }
     }

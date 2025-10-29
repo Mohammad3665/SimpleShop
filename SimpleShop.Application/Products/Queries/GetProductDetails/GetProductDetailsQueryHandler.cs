@@ -21,6 +21,7 @@ namespace SimpleShop.Application.Products.Queries.GetProductDetails
             var product = await _context.Products
                 .AsNoTracking()
                 .Include(c => c.Category)
+                .Include(c => c.Images)
                 .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
 
             if (product == null)
@@ -35,8 +36,11 @@ namespace SimpleShop.Application.Products.Queries.GetProductDetails
                 Description = product.Description,
                 Price = product.Price,
                 IsInStock = product.Stock > 0,
-                ImageFileName = product.ImageName,
-                CategoryName = product.Category.Name
+                CategoryName = product.Category.Name,
+                ImageUrls = product.Images
+                            .OrderBy(i => !i.IsMain)
+                            .Select(i => i.FileName)
+                            .ToList()
             };
 
             return detailsDTO;

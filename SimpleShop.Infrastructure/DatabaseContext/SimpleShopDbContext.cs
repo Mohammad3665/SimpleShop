@@ -45,6 +45,12 @@ namespace SimpleShop.Infrastructure.DatabaseContext
                 .HasOne<ApplicationUser>()
                 .WithOne(u => u.Cart)
                 .HasForeignKey<Cart>(c => c.UserId);
+
+            modelBuilder.Entity<Product>()
+            .HasMany(p => p.Images)
+            .WithOne(i => i.Product)
+            .HasForeignKey(i => i.ProductId)
+            .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

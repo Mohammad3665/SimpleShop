@@ -13,6 +13,6 @@ namespace SimpleShop.Application.Products.Queries.GetPublicProductList
         public decimal Price { get; set; }
         public string CategoryName { get; set; }
         public bool IsInStock { get; set; }
-        public string ThumbnailUrl { get; set; }
+        public string MainImageUrl { get; set; }
     }
 }

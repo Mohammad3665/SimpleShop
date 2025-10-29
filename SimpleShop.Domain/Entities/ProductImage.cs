@@ -8,12 +8,11 @@ namespace SimpleShop.Domain.Entities
 {
     public class ProductImage
     {
-        public int Id { get; set; }
-        public int ProductId { get; set; }
-        public string ImageFileName { get; set; }
-        public bool IsMainImage { get; set; }
+            public int Id { get; set; }
+            public int ProductId { get; set; }
+            public string FileName { get; set; }
+            public bool IsMain { get; set; }
 
-        //Forigen Keys
-        public Product Product { get; set; }
+            public Product Product { get; set; }
     }
 }

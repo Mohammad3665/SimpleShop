@@ -21,7 +21,7 @@ namespace SimpleShop.Application.Products.Commands.CreateProduct
 
         public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var fileName = await _fileService.SaveFileAsync(request.ImageFile, "images/products");
+            //var fileName = await _fileService.SaveFileAsync(request.ImageFile, "images/products");
             var entity = new Product
             {
                 Name = request.Name,
@@ -29,8 +29,23 @@ namespace SimpleShop.Application.Products.Commands.CreateProduct
                 Price = request.Price,
                 Stock = request.Stock,
                 CategoryId = request.CategoryId,
-                ImageName = fileName
+                Images = new List<ProductImage>()
             };
+            if (request.ImageFiles is not null &&  request.ImageFiles.Any())
+            {
+                bool isFirst = true;
+                foreach (var file in request.ImageFiles)
+                {
+                    var fileName = await _fileService.SaveFileAsync(file, "images/products");
+                    entity.Images.Add(new ProductImage
+                    {
+                        FileName = fileName,
+                        IsMain = isFirst
+                    });
+                    isFirst = false;
+                }
+            }
+            entity.ImageName = entity.Images.FirstOrDefault(i => i.IsMain)?.FileName;
             _context.Products.Add(entity);
             await _context.SaveChangesAsync(cancellationToken);
             return entity.Id;

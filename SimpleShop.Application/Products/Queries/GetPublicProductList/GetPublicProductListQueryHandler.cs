@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SimpleShop.Application.Common.Interfaces;
+using SimpleShop.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,14 @@ namespace SimpleShop.Application.Products.Queries.GetPublicProductList
                 .AsNoTracking()
                 .Include(p => p.Category)
                 .Where(p => p.Stock > 0);
+            //if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+            //{
+            //    var term = request.SearchTerm.Trim().ToLower();
+            //    query = query.Where(p =>
+            //        p.Name.ToLower().Contains(term) ||
+            //        p.Description.ToLower().Contains(term)
+            //    );
+            //}
 
             if (request.CategoryId.HasValue && request.CategoryId.Value > 0)
             {

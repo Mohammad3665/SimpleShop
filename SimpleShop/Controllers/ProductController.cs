@@ -14,11 +14,22 @@ namespace SimpleShop.Web.Controllers
 
         //TODO : Main page
         //GET : Product/Index
-        public async Task<IActionResult> Index(int? categoryId)
+        public async Task<IActionResult> Index(int? categoryId, string term)
         {
-            var query = new GetPublicProductListQuery { CategoryId = categoryId };
+            object query;
+            if (!string.IsNullOrWhiteSpace(term))
+            {
+                query = new SearchProductsQuery { SearchTerm = term };
+                ViewBag.SearchTerm = term;
+            }
+            else
+            {
+                query = new GetPublicProductListQuery { CategoryId = categoryId };
+                ViewBag.SearchTerm = null;
+            }
             var model = await _mediator.Send(query);
             ViewBag.CategoryId = categoryId;
+            ViewBag.SearchTerm = term;
             return View(model);
         }
 
@@ -32,14 +43,14 @@ namespace SimpleShop.Web.Controllers
             return View(model);
         }
         
-        //TODO : Search
-        //GET : Product/Search
-        public async Task<IActionResult> Search(string term)
-        {
-            var query = new SearchProductsQuery { SearchTerm = term };
-            var model = await _mediator.Send(query);
-            ViewBag.SearchTerm = term;
-            return View("Index", model);
-        }
+        ////TODO : Search
+        ////GET : Product/Search
+        //public async Task<IActionResult> Search(string term)
+        //{
+        //    var query = new SearchProductsQuery { SearchTerm = term };
+        //    var model = await _mediator.Send(query);
+        //    ViewBag.SearchTerm = term;
+        //    return View(model);
+        //}
     }
 }

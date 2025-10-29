@@ -10,5 +10,6 @@ namespace SimpleShop.Application.Products.Queries.GetPublicProductList
     public class GetPublicProductListQuery : IRequest<List<PublicProductDTO>>
     {
         public int? CategoryId { get; set; }
+        //public string SearchTerm { get; set; }
     }
 }

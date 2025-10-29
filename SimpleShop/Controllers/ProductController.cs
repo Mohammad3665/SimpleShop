@@ -42,15 +42,5 @@ namespace SimpleShop.Web.Controllers
             if (model == null) return NotFound();
             return View(model);
         }
-        
-        ////TODO : Search
-        ////GET : Product/Search
-        //public async Task<IActionResult> Search(string term)
-        //{
-        //    var query = new SearchProductsQuery { SearchTerm = term };
-        //    var model = await _mediator.Send(query);
-        //    ViewBag.SearchTerm = term;
-        //    return View(model);
-        //}
     }
 }

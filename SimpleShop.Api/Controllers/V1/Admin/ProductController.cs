@@ -56,7 +56,7 @@ namespace SimpleShop.Api.Controllers.V1.Admin
             }
         }
 
-        //TODO : (C) create new product
+        //TODO : (U) Edit product
         //GET : api/v1/Admin/Product/Edit
         [HttpGet("{id}")]
         public async Task<ActionResult<EditProductCommand>> Edit(int id)
@@ -70,8 +70,8 @@ namespace SimpleShop.Api.Controllers.V1.Admin
             return Ok(productCommand);
         }
 
-        //TODO : (C) create new product
-        //PUT : api/v1/Admin/Product/Create
+        //TODO : (U) Edit product
+        //PUT : api/v1/Admin/Product/Edit
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(int id, [FromForm] EditProductCommand command)
         {
@@ -87,8 +87,8 @@ namespace SimpleShop.Api.Controllers.V1.Admin
             }
         }
 
-        //TODO : (C) create new product
-        //DELETE : api/v1/Admin/Product/Create
+        //TODO : (D) Delete product
+        //DELETE : api/v1/Admin/Product/Delete
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\V1\Admin\" />
     <Folder Include="Controllers\V1\Public\" />
   </ItemGroup>
 

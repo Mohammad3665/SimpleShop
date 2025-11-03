@@ -1,38 +1,43 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleShop.Application.Orders.Queries.GetOrderDetails;
 using SimpleShop.Application.Orders.Queries.GetUserOrders;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace SimpleShop.Web.Controllers
+namespace SimpleShop.Api.Controllers.V1.Public
 {
-    [Authorize]
-    public class OrderController : Controller
+    [ApiController]
+    [Route("api/v1/Public/[controller]/[action]")]
+    [Authorize(Roles = "Admin")]
+    public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
         public OrderController(IMediator mediator) => _mediator = mediator;
-        
+
         //TODO : Show user orders history
-        //GET : Order/Index
-        public async Task<IActionResult> Index()
+        //GET : api/v1/Public/Order/Index
+        public async Task<ActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var query = new GetUserOrdersQuery { UserId = userId };
             var model = await _mediator.Send(query);
-            return View(model);
+            if (model == null) return NotFound();
+            return Ok(model);
         }
 
-        //TODO : Show order ditails
-        //GET : Order/Details
-        public async Task<IActionResult> Details(int id)
+        //TODO : Show user orders history
+        //GET : api/v1/Public/Order/Details
+        public async Task<ActionResult> Details(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var query = new GetOrderDetailsQuery {  UserId = userId , OrderId = id };
+            var query = new GetOrderDetailsQuery { UserId = userId };
             var model = await _mediator.Send(query);
             if (model == null) return NotFound();
-            return View(model);
+            return Ok(model);
         }
     }
 }

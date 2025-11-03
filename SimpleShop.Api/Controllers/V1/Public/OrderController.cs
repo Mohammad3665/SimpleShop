@@ -12,7 +12,6 @@ namespace SimpleShop.Api.Controllers.V1.Public
 {
     [ApiController]
     [Route("api/v1/Public/[controller]/[action]")]
-    [Authorize(Roles = "Admin")]
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -29,7 +28,7 @@ namespace SimpleShop.Api.Controllers.V1.Public
             return Ok(model);
         }
 
-        //TODO : Show user orders history
+        //TODO : Show user order details
         //GET : api/v1/Public/Order/Details
         public async Task<ActionResult> Details(int id)
         {

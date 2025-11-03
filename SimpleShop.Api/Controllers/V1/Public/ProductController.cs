@@ -11,7 +11,6 @@ namespace SimpleShop.Api.Controllers.V1.Public
 {
     [ApiController]
     [Route("api/v1/Public/[controller]/[action]")]
-    [Authorize(Roles = "Admin")]
     public class ProductController : ControllerBase
     {
         private readonly IMediator _mediator;

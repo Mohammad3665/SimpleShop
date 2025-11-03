@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace SimpleShop.Api.Controllers.V1.Admin
 {
     [ApiController]
-    [Route("api/v1/Admin/Category/[controller]")]
+    [Route("api/v1/Admin/[controller]/[action]")]
     [Authorize(Roles = "Admin")]
     public class CategoryController : ControllerBase
     {

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace SimpleShop.Api.Controllers.V1.Admin
 {
     [ApiController]
-    [Route("api/v1/Admin/Order/[controller]")]
+    [Route("api/v1/Admin/[controller]/[action]")]
     [Authorize(Roles = "Admin")]
     public class OrderController : ControllerBase
     {

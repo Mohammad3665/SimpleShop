@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SimpleShop.Api.Controllers.V1.Admin
 {
     [ApiController]
-    [Route("api/v1/Admin/Product/[controller]")]
+    [Route("api/v1/Admin/[controller]/[action]")]
     [Authorize(Roles = "Admin")]
     public class ProductController : ControllerBase
     {
@@ -40,7 +40,7 @@ namespace SimpleShop.Api.Controllers.V1.Admin
         //TODO : (C) create new product
         //POST : api/v1/Admin/Product/Create
         [HttpPost]
-        public async Task<ActionResult> Create(CreateProductCommand command)
+        public async Task<IActionResult> Create(CreateProductCommand command)
         {
             try
             {

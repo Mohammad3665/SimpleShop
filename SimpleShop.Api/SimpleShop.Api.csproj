@@ -11,8 +11,4 @@
     <ProjectReference Include="..\SimpleShop.Infrastructure\SimpleShop.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\V1\Public\" />
-  </ItemGroup>
-
 </Project>

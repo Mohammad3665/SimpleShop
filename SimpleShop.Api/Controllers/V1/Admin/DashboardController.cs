@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SimpleShop.Api.Controllers.V1.Admin
 {
     [ApiController]
-    [Route("api/v1/Admin/[controller]")]
+    [Route("api/v1/Admin/[controller]/[action]")]
     [Authorize(Roles = "Admin")]
     public class DashboardController : ControllerBase
     {

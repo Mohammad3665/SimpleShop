@@ -24,6 +24,7 @@ namespace SimpleShop.Api.Controllers.V1.Public
 
         //TODO : Register
         //GET : api/v1/Public/Account/Register
+        [HttpGet]
         public ActionResult Register([FromQuery] string returnUrl = null) => Ok();
 
         //POST : api/v1/Public/Account/Register

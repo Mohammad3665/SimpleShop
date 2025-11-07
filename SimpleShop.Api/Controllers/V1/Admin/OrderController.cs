@@ -20,6 +20,7 @@ namespace SimpleShop.Api.Controllers.V1.Admin
 
         //TODO : (R) Show orders list
         //GET : api/v1/Admin/Order/Index
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var query = new GetAdminOrdersQuery();

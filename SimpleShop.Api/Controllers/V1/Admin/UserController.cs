@@ -18,6 +18,7 @@ namespace SimpleShop.Api.Controllers.V1.Admin
 
         //TODO : Users list
         //GET : api/v1/Admin/User/Index
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var query = new GetUserManagmentListQuery();

@@ -22,6 +22,7 @@ namespace SimpleShop.Api.Controllers.V1.Admin
         public ProductController(IMediator mediator) => _mediator = mediator;
         //TODO : (R) show products
         //GET : api/v1/Admin/Product
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var query = new GetProductsListQuery();
@@ -31,6 +32,7 @@ namespace SimpleShop.Api.Controllers.V1.Admin
 
         //TODO : (C) create new product
         //GET : api/v1/Admin/Product/Create
+        [HttpGet]
         public async Task<ActionResult> Create()
         {
             var categories = await _mediator.Send(new GetCategoriesListQuery());

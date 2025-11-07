@@ -13,7 +13,9 @@ namespace SimpleShop.Api.StartupExtensions
         public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddControllersWithViews();
+            services.AddControllers();
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
             services.AddScoped<IPathService, WebPathService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IPaymentService, PaymentService>();

@@ -14,6 +14,7 @@ namespace SimpleShop.Api.Controllers.V1.Admin
     {
         private readonly IMediator _mediator;
         public DashboardController(IMediator mediator) => _mediator = mediator;
+        [HttpGet]
         public async Task<ActionResult<DashboardStatusDTO>> Index()
         {
             var query = new GetDashboardStatusQuery();

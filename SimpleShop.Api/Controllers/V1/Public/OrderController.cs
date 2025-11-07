@@ -19,6 +19,7 @@ namespace SimpleShop.Api.Controllers.V1.Public
 
         //TODO : Show user orders history
         //GET : api/v1/Public/Order/Index
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -30,6 +31,7 @@ namespace SimpleShop.Api.Controllers.V1.Public
 
         //TODO : Show user order details
         //GET : api/v1/Public/Order/Details
+        [HttpGet]
         public async Task<ActionResult> Details(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

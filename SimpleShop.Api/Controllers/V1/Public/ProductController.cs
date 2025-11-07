@@ -18,6 +18,7 @@ namespace SimpleShop.Api.Controllers.V1.Public
 
         //TODO : Main page
         //GET : api/v1/Public/Product/Index
+        [HttpGet]
         public async Task<ActionResult<List<PublicProductDTO>>> Index([FromQuery] int? categoryId, [FromQuery] string term)
         {
             object query;

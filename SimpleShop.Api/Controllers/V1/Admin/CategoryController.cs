@@ -20,6 +20,7 @@ namespace SimpleShop.Api.Controllers.V1.Admin
         public CategoryController(IMediator mediator) => _mediator = mediator;
         //TODO : (R) show categories list
         //GET : api/v1/Admin/Categroy/Index
+        [HttpGet]
         public async Task<ActionResult<CategoryListDTO>> Index()
         {
             var query = new GetCategoriesListQuery();

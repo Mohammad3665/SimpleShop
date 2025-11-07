@@ -22,6 +22,7 @@ namespace SimpleShop.Api.Controllers.V1.Public
 
         //TODO : Show user cart
         //GET : api/v1/Public/Cart/Index
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -103,10 +104,12 @@ namespace SimpleShop.Api.Controllers.V1.Public
 
         //TODO: show the address form
         //GET: api/v1/Public/Cart/Checkout
+        [HttpGet]
         public ActionResult Checkout() => Ok(new CreateOrderCommand());
 
         //TODO: Place order
         //POST: api/v1/Public/Cart/PlaceOrder
+        [HttpPost]
         public async Task<IActionResult> PlaceOrder(CreateOrderCommand command)
         {
             try

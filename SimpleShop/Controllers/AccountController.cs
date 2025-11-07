@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleShop.Domain.IdentityEntities;
 using SimpleShop.Web.Models.Account;
@@ -34,7 +35,10 @@ namespace SimpleShop.Web.Controllers
             {
                 var user = new ApplicationUser
                 {
+
                     UserName = model.UserName,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     Email = model.Email
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -44,7 +48,7 @@ namespace SimpleShop.Web.Controllers
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     TempData["SuccessMessage"] = "Regiteration was successful.";
                 }
-                return RedirectToLocal(returnUrl);
+                return RedirectToAction("Index", "Product");
             }
             //If there is a problem, redisplay the form.
             return View(model);
@@ -77,12 +81,12 @@ namespace SimpleShop.Web.Controllers
 
         //TODO : Logout
         //POST : Account/Logout
+        [Authorize]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(Login));
+            return RedirectToAction(nameof(ProductController.Index), "Product");
         }
 
         private IActionResult RedirectToLocal(string returnUrl)

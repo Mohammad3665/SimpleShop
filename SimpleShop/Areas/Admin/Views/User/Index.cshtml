@@ -33,7 +33,7 @@
                 <td>
                     @* <a asp-action="ManageRoles" asp-route-id="@user.Id" class="btn btn-sm btn-primary">نقش‌ها</a> *@
 
-                    <form asp-action="ToggleStatus" asp-route-id="@user.UserId" method="post" class="d-inline">
+                    <form asp-controller="User" asp-action="ToggleStatus" asp-route-id="@user.UserId" method="post" class="d-inline">
                         <button type="submit" class="btn btn-sm @(user.IsActive ? "btn-warning" : "btn-success")">
                             @(user.IsActive ? "InActive‌" : "Active‌")
                         </button>

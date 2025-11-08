@@ -63,13 +63,15 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-3">
+                    <form asp-controller="Cart" asp-action="PlaceOrder" method="post">
                     <div class="order-summary-container">
                         <h3 class="order-summary-heading">Your Order</h3>
                         <div class="order-summary-box">
                             <ul class="order-summary-detail u-s-m-b-14">
                                 <li>
-                                    <span class="order-summary-detail__text">Total Amount</span> @* Subtotal به Total Amount تغییر داده شد *@
+                                    <span class="order-summary-detail__text">Total Amount</span>
                                     <span class="order-summary-detail__value">$@subTotal.ToString("N2")</span>
                                 </li>
                                 <li class="s-total">
@@ -81,6 +83,7 @@
                             <button type="submit" class="btn btn--e-brand-b-2 btn--full-width">PLACE ORDER</button>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </form>

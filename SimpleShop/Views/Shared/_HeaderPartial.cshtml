@@ -64,22 +64,26 @@
                                             </a>
                                         </li>
                                     }
-                                    <li>
+                                    @if (!SignInManager.IsSignedIn(User))
+                                    {
+                                        <li>
 
-                                        <a asp-controller="Account" asp-action="Register">
-                                            <i class="fas fa-user-plus u-s-m-r-6"></i>
+                                            <a asp-controller="Account" asp-action="Register">
+                                                <i class="fas fa-user-plus u-s-m-r-6"></i>
 
-                                            <span>Signup</span>
-                                        </a>
-                                    </li>
-                                    <li>
+                                                <span>Signup</span>
+                                            </a>
+                                        </li>
 
-                                        <a asp-controller="Account" asp-action="Login">
-                                            <i class="fas fa-lock u-s-m-r-6"></i>
+                                        <li>
 
-                                            <span>Signin</span>
-                                        </a>
-                                    </li>
+                                            <a asp-controller="Account" asp-action="Login">
+                                                <i class="fas fa-lock u-s-m-r-6"></i>
+
+                                                <span>Signin</span>
+                                            </a>
+                                        </li>
+                                    }
                                     @if (SignInManager.IsSignedIn(User))
                                     {
                                         @* <li>

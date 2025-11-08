@@ -118,7 +118,7 @@ namespace SimpleShop.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Checkout", command);
+                return RedirectToAction("Checkout", "Cart");
             }
             try
             {
@@ -130,7 +130,7 @@ namespace SimpleShop.Web.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Error in placing order" + ex.Message);
-                return View("Checkout", command);
+                return RedirectToAction("Checkout", "Cart");
             }
         }
     }

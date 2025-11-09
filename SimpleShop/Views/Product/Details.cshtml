@@ -12,17 +12,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5">
-                    <!--====== Product Detail Zoom ======-->
+                    @* <!--====== Product Detail Zoom ======-->
                     <div class="pd u-s-m-b-30">
                         <div class="slider-fouc pd-wrap">
                             <div id="pd-o-initiate">
                                 @foreach (var file in Model.ImageUrls)
                                 {
-                                <div class="pd-o-img-wrap" data-src="images/products/@file">
+                                    var imageUrl = Url.Content($"~/images/products/{file}");
+                                    <div class="pd-o-img-wrap" data-src="@imageUrl">
 
-                                    <img class="u-img-fluid" src="images/product/@file" data-zoom-image="images/products/@file" alt="">
-                                </div>
-                                    
+                                        <img class="u-img-fluid" src="@imageUrl" data-zoom-image="@imageUrl" alt="">
+                                    </div>
+
                                 }
                             </div>
 
@@ -33,11 +34,46 @@
                                 <div id="pd-o-thumbnail">
                                     @foreach (var fileName in Model.ImageUrls)
                                     {
-                                    <div>
+                                        <div>
 
-                                        <img class="u-img-fluid" src="images/products/@fileName" alt="">
+                                            <img class="u-img-fluid" src="images/products/@fileName" alt="">
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Product Detail Zoom ======--> *@
+
+                    <!--====== Product Detail Zoom ======-->
+                    <div class="pd u-s-m-b-30">
+                        <div class="slider-fouc pd-wrap">
+                            <div id="pd-o-initiate">
+                                @foreach (var file in Model.ImageUrls)
+                                {
+                                    var imageUrl = Url.Content($"~/images/products/{file}");
+                                    <div class="pd-o-img-wrap" data-src="@imageUrl">
+
+                                        <img class="u-img-fluid" src="@imageUrl" data-zoom-image="@imageUrl" alt="">
                                     </div>
-                                        
+                                }
+
+                            </div>
+
+                            <span class="pd-text">Click for larger zoom</span>
+                        </div>
+                        <div class="u-s-m-t-15">
+                            <div class="slider-fouc">
+                                <div id="pd-o-thumbnail">
+                                    @foreach (var file in Model.ImageUrls)
+                                    {
+                                        var imageUrl = Url.Content($"~/images/products/{file}");
+                                        <div>
+
+                                            <img class="u-img-fluid" src="@imageUrl" alt="">
+                                        </div>
+
                                     }
                                 </div>
                             </div>

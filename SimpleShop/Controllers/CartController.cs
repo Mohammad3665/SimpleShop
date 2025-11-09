@@ -120,9 +120,10 @@ namespace SimpleShop.Web.Controllers
             {
                 return RedirectToAction("Checkout", "Cart");
             }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                command.UserId = userId;
                 int orderId = await _mediator.Send(command);
                 TempData["SuccessMessage"] = $"Your order with ID {orderId} was successfully placed and is being reviewed.";
                 return RedirectToAction("Index", "Order");

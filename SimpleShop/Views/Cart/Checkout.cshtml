@@ -68,9 +68,7 @@
                     @Html.AntiForgeryToken()
 
                     <input type="hidden" asp-for="PostalCode" />
-                    <input type="hidden" asp-for="UserId" />
                     <input type="hidden" asp-for="ShippingAddress" />
-                    <input type="hidden" asp-for="CartItems" />
                     @if (Model.CartItems != null)
                     {
                         for (int i = 0; i < Model.CartItems.Count; i++)

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SimpleShop.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace SimpleShop.Application.Orders.Commands.CreateOrder
         public string UserId { get; set; }
         public string ShippingAddress { get; set; }
         public string PostalCode { get; set; }
-
+        public List<CartItem> CartItems { get; set; }
 
     }
 }

@@ -64,27 +64,41 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3">
-                    <form asp-controller="Cart" asp-action="PlaceOrder" method="post">
-                    <div class="order-summary-container">
-                        <h3 class="order-summary-heading">Your Order</h3>
-                        <div class="order-summary-box">
-                            <ul class="order-summary-detail u-s-m-b-14">
-                                <li>
-                                    <span class="order-summary-detail__text">Total Amount</span>
-                                    <span class="order-summary-detail__value">$@subTotal.ToString("N2")</span>
-                                </li>
-                                <li class="s-total">
-                                    <span class="order-summary-detail__text">Grand Total</span>
-                                    <span class="order-summary-detail__value">$@totalAmount.ToString("N2")</span>
-                                </li>
-                            </ul>
+                <form asp-controller="Cart" asp-action="PlaceOrder" method="post">
+                    @Html.AntiForgeryToken()
 
-                            <button type="submit" class="btn btn--e-brand-b-2 btn--full-width">PLACE ORDER</button>
+                    <input type="hidden" asp-for="PostalCode" />
+                    <input type="hidden" asp-for="UserId" />
+                    <input type="hidden" asp-for="ShippingAddress" />
+                    <input type="hidden" asp-for="CartItems" />
+                    @if (Model.CartItems != null)
+                    {
+                        for (int i = 0; i < Model.CartItems.Count; i++)
+                        {
+                            <input type="hidden" asp-for="CartItems[i].ProductId" />
+                            <input type="hidden" asp-for="CartItems[i].Quantity" />
+                        }
+                    }
+                    <div class="col-lg-3">
+                        <div class="order-summary-container">
+                            <h3 class="order-summary-heading">Your Order</h3>
+                            <div class="order-summary-box">
+                                <ul class="order-summary-detail u-s-m-b-14">
+                                    <li>
+                                        <span class="order-summary-detail__text">Total Amount</span>
+                                        <span class="order-summary-detail__value">$@subTotal.ToString("N2")</span>
+                                    </li>
+                                    <li class="s-total">
+                                        <span class="order-summary-detail__text">Grand Total</span>
+                                        <span class="order-summary-detail__value">$@totalAmount.ToString("N2")</span>
+                                    </li>
+                                </ul>
+
+                                <button type="submit" class="btn btn--e-brand-b-2 btn--full-width">PLACE ORDER</button>
+                            </div>
                         </div>
                     </div>
-                    </form>
-                </div>
+                </form>
             </div>
         </form>
     </div>
